@@ -1,7 +1,19 @@
 import classes from './CartItem.module.css';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store';
 
 const CartItem = (props) => {
+  const dispatch = useDispatch();
   const { title, quantity, total, price } = props.item;
+
+  // add the quantity functions to the reducer in the store
+
+  // addQuantityHandler = () => {
+  //   dispatch(cartActions.addQuantity)
+  // }
+  // subtractQuantityHandler = () => {
+  //   dispatch(cartActions.subtractQuantity)
+  // }
 
   return (
     <li className={classes.item}>
