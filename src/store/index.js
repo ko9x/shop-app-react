@@ -14,7 +14,25 @@ const cartSlice = createSlice({
     },
     toggleCart(state) {
        state.isShown = !state.isShown
-    }
+    },
+    addQuantity(state, action) {
+      let newItems = state.items;
+      let item = newItems.find(item => item.title === action.payload);
+      if(item) {
+        item.quantity++;
+        item.total = Number(item.price * item.quantity);
+      };
+      state.items = newItems;
+    },
+    subtractQuantity(state, action) {
+      let newItems = state.items;
+      let item = newItems.find(item => item.title === action.payload);
+      if(item) {
+        item.quantity--
+        item.total = Number(item.price * item.quantity);
+      };
+      state.items = newItems;
+    },
   },
 });
 

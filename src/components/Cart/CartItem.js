@@ -6,14 +6,12 @@ const CartItem = (props) => {
   const dispatch = useDispatch();
   const { title, quantity, total, price } = props.item;
 
-  // add the quantity functions to the reducer in the store
-
-  // addQuantityHandler = () => {
-  //   dispatch(cartActions.addQuantity)
-  // }
-  // subtractQuantityHandler = () => {
-  //   dispatch(cartActions.subtractQuantity)
-  // }
+  const addQuantityHandler = () => {
+    dispatch(cartActions.addQuantity(props.item.title))
+  }
+  const subtractQuantityHandler = () => {
+    dispatch(cartActions.subtractQuantity(props.item.title))
+  }
 
   return (
     <li className={classes.item}>
@@ -29,8 +27,8 @@ const CartItem = (props) => {
           x <span>{quantity}</span>
         </div>
         <div className={classes.actions}>
-          <button>-</button>
-          <button>+</button>
+          <button onClick={subtractQuantityHandler} >-</button>
+          <button onClick={addQuantityHandler} >+</button>
         </div>
       </div>
     </li>
