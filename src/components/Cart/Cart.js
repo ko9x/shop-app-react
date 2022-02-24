@@ -11,9 +11,11 @@ const Cart = (props) => {
     <CartItem item={item} key={Math.random()}/>
   ))
 
+
   return (
     <Card className={classes.cart}>
-      <h2>Your Shopping Cart</h2>
+      {itemList.length > 0 && <h2>Your Shopping Cart</h2>}
+      {itemList.length === 0 && <h2>Your Shopping Cart Is Empty</h2>}
       <ul>
         {itemList}
       </ul>
