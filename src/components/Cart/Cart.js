@@ -7,9 +7,15 @@ const Cart = (props) => {
 
   const items = useSelector(state => state.items)
 
+  const cartTotal = items.map(item => (
+    item.total  
+  ));
+
+  const sum = cartTotal.reduce((partialSum, a) => partialSum + a, 0);
+
   const itemList = items.map(item => (
     <CartItem item={item} key={Math.random()}/>
-  ))
+  ));
 
 
   return (
@@ -19,6 +25,7 @@ const Cart = (props) => {
       <ul>
         {itemList}
       </ul>
+      {itemList.length > 0 && <div><h3>Cart Total </h3><p className={classes.total}>${sum.toFixed(2)}</p></div>}
     </Card>
   );
 };
