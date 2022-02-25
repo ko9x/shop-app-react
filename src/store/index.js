@@ -18,7 +18,7 @@ const cartSlice = createSlice({
         return;
       }
       state.items.push({
-        id: Math.random(),
+        id: action.payload.id,
         title: action.payload.title,
         price: Number(action.payload.price),
         quantity: 1,
@@ -29,29 +29,24 @@ const cartSlice = createSlice({
       state.isShown = !state.isShown;
     },
     addQuantity(state, action) {
-      let newItems = state.items;
-      let item = newItems.find((item) => item.id === action.payload.id);
+      let item = state.items.find((item) => item.id === action.payload.id);
       if (item) {
         item.quantity++;
         item.total = Number(item.price * item.quantity);
       }
-      state.items = newItems;
     },
     subtractQuantity(state, action) {
-      let newItems = state.items;
-      let item = newItems.find((item) => item.id === action.payload.id);
+      let item = state.items.find((item) => item.id === action.payload.id);
       if (item.quantity === 1) {
-        let updatedItems = newItems.filter(
+        state.items = state.items.filter(
           (item) => item.id !== action.payload.id
         );
-        state.items = updatedItems;
         return;
       }
       if (item) {
         item.quantity--;
         item.total = Number(item.price * item.quantity);
       }
-      state.items = newItems;
     },
   },
 });
