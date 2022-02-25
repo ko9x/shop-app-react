@@ -4,7 +4,7 @@ import { cartActions } from '../../store';
 
 const CartButton = (props) => {
 
-  const cartAmount = useSelector(state => state.items.length);
+  const cartAmount = useSelector(state => state.totalQuantity);
   const dispatch = useDispatch();
 
   const showCartHandler = () => {
