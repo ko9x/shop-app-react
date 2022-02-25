@@ -2,7 +2,7 @@ import { createStore, createSlice } from "@reduxjs/toolkit";
 
 const initialCartState = {
   isShown: false,
-  items: [{ title: "Test Item", price: 6.00, quantity: 3, total: 18 },{ title: "Test Item #2", price: 6.00, quantity: 3, total: 18 },{ title: "Test Item #3", price: 6.00, quantity: 3, total: 18 }],
+  items: [],
 };
 
 const cartSlice = createSlice({
@@ -10,40 +10,53 @@ const cartSlice = createSlice({
   initialState: initialCartState,
   reducers: {
     addItem(state, action) {
-      state.items.push(action.item);
+      let existingItem = state.items.filter(
+        (item) => item.title === action.payload.title
+      );
+      if (existingItem.length > 0) {
+        cartSlice.caseReducers.addQuantity(state, action);
+        return;
+      }
+      state.items.push({
+        title: action.payload.title,
+        price: Number(action.payload.price),
+        quantity: 1,
+        total: Number(action.payload.price),
+      });
     },
     toggleCart(state) {
-       state.isShown = !state.isShown
+      state.isShown = !state.isShown;
     },
     addQuantity(state, action) {
       let newItems = state.items;
-      let item = newItems.find(item => item.title === action.payload);
-      if(item) {
+      let item = newItems.find((item) => item.title === action.payload.title);
+      if (item) {
         item.quantity++;
         item.total = Number(item.price * item.quantity);
-      };
+      }
       state.items = newItems;
     },
     subtractQuantity(state, action) {
       let newItems = state.items;
-      let item = newItems.find(item => item.title === action.payload);
-      if(item.quantity === 1) {
-        let updatedItems = newItems.filter(item => item.title !== action.payload)
+      let item = newItems.find((item) => item.title === action.payload.title);
+      if (item.quantity === 1) {
+        let updatedItems = newItems.filter(
+          (item) => item.title !== action.payload.title
+        );
         state.items = updatedItems;
-        return
+        return;
       }
-      if(item) {
-        item.quantity--
+      if (item) {
+        item.quantity--;
         item.total = Number(item.price * item.quantity);
-      };
+      }
       state.items = newItems;
     },
   },
 });
 
-
 const store = createStore(cartSlice.reducer);
 
 export const cartActions = cartSlice.actions;
 
-export default store
+export default store;

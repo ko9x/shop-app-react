@@ -7,10 +7,10 @@ const CartItem = (props) => {
   const { title, quantity, total, price } = props.item;
 
   const addQuantityHandler = () => {
-    dispatch(cartActions.addQuantity(props.item.title))
+    dispatch(cartActions.addQuantity({title: props.item.title}));
   }
   const subtractQuantityHandler = () => {
-    dispatch(cartActions.subtractQuantity(props.item.title))
+    dispatch(cartActions.subtractQuantity({title: props.item.title}));
   }
 
   return (

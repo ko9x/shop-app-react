@@ -14,3 +14,8 @@
   padding: 0;
   margin: 0;
 }
+
+.cart p {
+  margin-top: -10%;
+  margin-left: 85%;
+}
