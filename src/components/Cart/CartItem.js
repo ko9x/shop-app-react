@@ -4,13 +4,13 @@ import { cartActions } from '../../store';
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
-  const { title, quantity, total, price } = props.item;
+  const { id, title, quantity, total, price } = props.item;
 
   const addQuantityHandler = () => {
-    dispatch(cartActions.addQuantity({title: props.item.title}));
+    dispatch(cartActions.addQuantity({id: id}));
   }
   const subtractQuantityHandler = () => {
-    dispatch(cartActions.subtractQuantity({title: props.item.title}));
+    dispatch(cartActions.subtractQuantity({id: id}));
   }
 
   return (

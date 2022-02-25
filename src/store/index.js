@@ -11,13 +11,14 @@ const cartSlice = createSlice({
   reducers: {
     addItem(state, action) {
       let existingItem = state.items.filter(
-        (item) => item.title === action.payload.title
+        (item) => item.id === action.payload.id
       );
       if (existingItem.length > 0) {
         cartSlice.caseReducers.addQuantity(state, action);
         return;
       }
       state.items.push({
+        id: Math.random(),
         title: action.payload.title,
         price: Number(action.payload.price),
         quantity: 1,
@@ -29,7 +30,7 @@ const cartSlice = createSlice({
     },
     addQuantity(state, action) {
       let newItems = state.items;
-      let item = newItems.find((item) => item.title === action.payload.title);
+      let item = newItems.find((item) => item.id === action.payload.id);
       if (item) {
         item.quantity++;
         item.total = Number(item.price * item.quantity);
@@ -38,10 +39,10 @@ const cartSlice = createSlice({
     },
     subtractQuantity(state, action) {
       let newItems = state.items;
-      let item = newItems.find((item) => item.title === action.payload.title);
+      let item = newItems.find((item) => item.id === action.payload.id);
       if (item.quantity === 1) {
         let updatedItems = newItems.filter(
-          (item) => item.title !== action.payload.title
+          (item) => item.id !== action.payload.id
         );
         state.items = updatedItems;
         return;

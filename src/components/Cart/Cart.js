@@ -14,7 +14,7 @@ const Cart = (props) => {
   const sum = cartTotal.reduce((partialSum, a) => partialSum + a, 0);
 
   const itemList = items.map(item => (
-    <CartItem item={item} key={Math.random()}/>
+    <CartItem item={item} key={item.id}/>
   ));
 
 
